@@ -6,8 +6,7 @@ import com.example.usecase.domain.repository.UserRepository
 
 class SaveUserNameUseCase (private val userRepository: UserRepository){
 
-    fun execute(param: SaveUserName): Boolean{
-        val result = userRepository.saveName(param)
-        return result
+    fun execute(param: SaveUserName): Boolean {
+        return userRepository.saveName(param)
     }
 }

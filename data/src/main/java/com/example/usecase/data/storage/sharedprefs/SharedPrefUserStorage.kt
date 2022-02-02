@@ -1,6 +1,7 @@
 package com.example.usecase.data.storage.sharedprefs
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.usecase.data.storage.UserStorage
 import com.example.usecase.data.storage.models.User
 
@@ -12,7 +13,7 @@ private const val DEFAULT_LAST_NAME = "def_last_name"
 
 class SharedPrefUserStorage(context: Context) : UserStorage {
 
-    val sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
 
     override fun save(user: User): Boolean {
         sharedPreferences.edit().putString(KEY_FIRST_NAME, user.firstName).apply()
