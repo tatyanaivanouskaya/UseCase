@@ -8,16 +8,21 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.usecase.R
+import com.example.usecase.app.App
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
+    @Inject
+    lateinit var vmFactory: MainViewModelFactory
     private lateinit var vm: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        vm = ViewModelProvider(this, MainViewModelFactory(this))
+        (applicationContext as App).appComponent.inject(this)
+
+        vm = ViewModelProvider(this, vmFactory)
             .get(MainViewModel::class.java)
 
         val dataTextView = findViewById<TextView>(R.id.dataTextView)
@@ -25,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val sendButton = findViewById<Button>(R.id.sendButton)
         val receiveButton = findViewById<Button>(R.id.receiveButton)
 
-        vm.resultData.observe(this, Observer {
+        vm.resultData.observe(this, {
             dataTextView.text = it
         })
 

@@ -3,11 +3,11 @@ package com.example.usecase.domain.usecase
 
 import com.example.usecase.domain.models.SaveUserName
 import com.example.usecase.domain.repository.UserRepository
+import javax.inject.Inject
 
-class SaveUserNameUseCase (private val userRepository: UserRepository){
+class SaveUserNameUseCase @Inject constructor(val userRepository: UserRepository){
 
-    fun execute(param: SaveUserName): Boolean{
-        val result = userRepository.saveName(param)
-        return result
+    fun execute(param: SaveUserName): Boolean {
+        return userRepository.saveName(param)
     }
 }
